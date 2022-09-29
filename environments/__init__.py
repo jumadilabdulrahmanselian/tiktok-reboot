@@ -11,11 +11,13 @@ def init_app():
         app.config["SESSION_FILE_DIR"] = "/home/alimstudio/Applications/python/tiktok-python/flask_session/"
     Session(app)
 
+    from .default import default
     from .auth import auth
     from .dashboard import dashboard
     from .parent import parent
     from .username import username
 
+    app.register_blueprint(default, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/auth/')
     app.register_blueprint(dashboard, url_prefix='/admin/')
     app.register_blueprint(parent, url_prefix='/admin/')

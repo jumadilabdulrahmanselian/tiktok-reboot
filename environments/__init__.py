@@ -1,10 +1,14 @@
 from flask import Flask, request
 from flask_session import Session
+import sys
+
 def init_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'lasdailshdlasdnalskdn'
     app.config["SESSION_PERMANENT"] = False
     app.config["SESSION_TYPE"] = "filesystem"
+    if sys.platform == 'linux' or sys.platform == 'linux2':
+        app.config["SESSION_FILE_DIR"] = "/home/alimstudio/Applications/python/tiktok-python/flask_session/"
     Session(app)
 
     from .auth import auth

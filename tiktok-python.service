@@ -1,0 +1,14 @@
+
+[Unit]
+Description=Setup a python running server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/alimstudio/Applications/python/tiktok-python/main.py
+User=alimstudio
+RestartSec=15
+Restart=on-failure
+KillMode=mixed
+
+[Install]
+WantedBy=multi-user.target

@@ -158,16 +158,18 @@ var ExAsUsername = (function() {
 
     var loadData = (parent) => {
         ExAl.Loading.Table.Show();
+        $('.full-loading').addClass('active')
         $.ajax({
             url: e3nCeL0t + "admin/username/load",
             method: "POST",
-            async: false,
+            async: true,
             data: {
                 parent: parent,
                 scrty: true
             },
             success: function(response) {
                 ExAl.Loading.Table.Hide();
+                $('.full-loading').removeClass('active')
                 var res = response
                 if (res.status) {
                     var no = 1;
@@ -291,7 +293,7 @@ var ExAsUsername = (function() {
 
                 if (isValid == true) {
                     $.ajax({
-                        url: e3nCeL0t + MoDaD + MAIN + "add",
+                        url: e3nCeL0t + "admin/username/save",
                         method: "POST",
                         data: $.param(_input),
                         success: function(response) {
@@ -303,7 +305,7 @@ var ExAsUsername = (function() {
                                 if (res.status) {
                                     ExAl.Toast.Success(res.header, res.message, function(result) {
                                         if (result.isDismissed) {
-                                            loadData();
+                                            loadData($('#parent_select').val())
                                             ExAl.Modal.Close('#modalTambah', true);
                                             $('#form_tambah').trigger('reset')
                                         }

@@ -1,201 +1,102 @@
-<!doctype html>
-<html lang="en" dir="ltr">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="utf-8" />
+    <title>Authentication</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Tiktok Management System" />
+    <meta name="author" content="Alimstudio" />
+    <meta name="theme-color" content="#5f5eaa">
+    <meta name="msapplication-TileColor" content="#5f5eaa">
+    <meta name="msapplication-navbutton-color" content="#5f5eaa">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#5f5eaa">
 
-    <!-- META DATA -->
-    <meta charset="UTF-8">
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Smelter Maintenance Two">
-    <meta name="author" content="Alimstudio">
-    <meta name="keywords" content="alimstudio.com, api-gateway">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/icon/apple-touch-iphone.png') }}" />
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ url_for('static', filename='img/icon/apple-touch-ipad.png') }}" />
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ url_for('static', filename='img/icon/apple-touch-iphone4.png') }}" />
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', filename='img/icon/apple-touch-ipad-retina.png') }}" />
 
-    <!-- FAVICON -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.png') }}" />
+    <!-- ================== BEGIN core-css ================== -->
+    <link media="all" href="{{ url_for('static', filename='css/vendor.min.css') }}" rel="stylesheet" type="text/css" />
+    <link media="all" href="{{ url_for('static', filename='css/app.min.css') }}" rel="stylesheet" type="text/css" />
+    <link media="all" href="{{ url_for('static', filename='plugins/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- ================== END core-css ================== -->
 
-    <!-- TITLE -->
-    <title>
-        Authentication
-    </title>
-
-    <script>
-        var aSt3x = 'L3N0YXRpYy8=';
-        var uXvbI = ''
-    </script>
-
-    <!-- Layout config Js -->
-    <script src="{{ url_for('static', filename='js/layout.js') }}"></script>
-    <!-- Bootstrap Css -->
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="{{ url_for('static', filename='css/icons.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="{{ url_for('static', filename='css/app.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- custom Css-->
-    <link href="{{ url_for('static', filename='css/custom.min.css') }}" rel="stylesheet" type="text/css" />
-
-    <link href="{{ url_for('static', filename='libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
-    <style>
-        a,
-        button {
-            outline: 0 !important;
-        }
-        
-        .particles-js-canvas-el {
-            position: absolute;
-            top: 0;
-        }
-        
-        .auth-one-bg-position {
-            height: 100%;
-        }
-        
-        .auth-page-wrapper .footer {
-            z-index: 1;
-        }
-        
-        .auth-one-bg {
-            background-image: url("{{ url_for('static', filename='images/bg.jpeg') }}");
-            background-position: unset;
-        }
-        
-        .auth-loading {
-            height: 15px;
-            width: 15px;
-            position: relative;
-            top: 2px;
-            margin-right: 5px;
-            display: none;
-        }
-    </style>
 </head>
 
-<body id="auth-particles">
-
-    <!-- BACKGROUND-IMAGE -->
-    <!-- auth-page wrapper -->
-    <div class="auth-page-wrapper pt-5">
-        <!-- auth page bg -->
-        <div class="auth-one-bg-position auth-one-bg">
-            <div class="bg-overlay"></div>
-        </div>
-
-        <!-- auth page content -->
-        <div class="auth-page-content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="text-center mt-sm-5 mb-4 text-white-50">
-                            <div>
-                                <a href="{{ baseUri }}" class="d-inline-block auth-logo">
-                                    <img src="{{ url_for('static', filename='images/tiktok-logo.png') }}" alt="" height="40">
-                                </a>
-                            </div>
-                            <p class="mt-3 fs-15 fw-medium">Tiktok Management System</p>
+<body class='pace-top'>
+    <!-- BEGIN #app -->
+    <div id="app" class="app app-full-height app-without-header">
+        <!-- BEGIN login -->
+        <div class="login">
+            <!-- BEGIN login-content -->
+            <div class="login-content">
+                <form autocomplete="off" method="post" data-type="save" id="form_tambah" class="needs-validation" novalidate>
+                    <h1 class="text-center">Sign In</h1>
+                    <div class="text-white text-opacity-50 text-center mb-4">
+                        For your protection, please verify your identity.
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="email">Email Address <span class="text-danger">*</span></label>
+                        <input type="email" id="email" required class="form-control form-control-lg bg-white bg-opacity-5" name="email" value="jufal69@gmail.com" placeholder="" />
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex">
+                            <label class="form-label" for="password">Password <span class="text-danger">*</span></label>
+                            <!-- <a href="{{ baseUri }}auth/forgot" style="font-size: 12px;" class="ms-auto text-white text-decoration-none text-opacity-50">Forgot password?</a> -->
+                        </div>
+                        <input type="password" id="password" required class="form-control form-control-lg bg-white bg-opacity-5" name="password" value="admin" placeholder="" />
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" id="auth-remember-check" />
+                            <label class="form-check-label" for="auth-remember-check">Remember me</label>
                         </div>
                     </div>
-                </div>
-                <!-- end row -->
-
-                <div class="row justify-content-center">
-                    <div class="col-md-8 col-lg-6 col-xl-5">
-                        <div class="card mt-4">
-
-                            <div class="card-body p-4">
-                                <div class="text-center mt-2">
-                                    <h5 class="text-primary">
-                                        Selamat Datang Kembali
-                                    </h5>
-                                    <p class="text-muted">
-                                        Masuk untuk melanjutkan ke Tiktok Management System.
-                                    </p>
-                                </div>
-                                <div class="p-2 mt-4">
-                                    <form id="form">
-
-                                        <div class="mb-3">
-                                            <label for="username" class="form-label">Username</label>
-                                            <input type="text" autocomplete="off" class="form-control" id="username" name="username" placeholder="Masukkan Username">
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label class="form-label" for="password">Password</label>
-                                            <div class="position-relative auth-pass-inputgroup mb-3">
-                                                <input type="password" autocomplete="off" class="form-control pe-5" name="password" placeholder="Masukkan Password" id="password">
-                                                <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="remember" value="1" id="auth-remember-check">
-                                            <label class="form-check-label" for="auth-remember-check">Ingat Saya?</label>
-                                        </div>
-
-                                        <div class="mt-4">
-                                            <button class="btn btn-success w-100" type="button" onclick="login(this)">
-                                                <span class="spinner-grow auth-loading" role="status"></span>
-                                                Masuk
-                                            </button>
-                                        </div>
-
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- end card body -->
-                        </div>
-                        <!-- end card -->
-
+                    <button type="button" class="btn btn-outline-theme btn-lg d-block w-100 fw-500 mb-3 signin">Sign In</button>
+                    <div class="text-center text-white text-opacity-50">
+                        Don't have an account yet? <a href="{{ baseUri }}auth/signup">Sign up</a>.
                     </div>
-                </div>
-                <!-- end row -->
+                </form>
             </div>
-            <!-- end container -->
+            <!-- END login-content -->
         </div>
-        <!-- end auth page content -->
+        <!-- END login -->
 
-        <!-- footer -->
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="text-center">
-                            <p class="mb-0 text-muted">&copy;
-                                <script>
-                                    if (new Date().getFullYear() > 2022) {
-                                        document.write('2022 - ')
-                                    }
-                                    document.write(new Date().getFullYear())
-                                </script> <a href="https://tiktok.zerohero.ga" style="color: white;">Tiktok Management System</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- end Footer -->
+        <!-- BEGIN btn-scroll-top -->
+        <a href="#" data-toggle="scroll-to-top" aria-label="scroll-top" class="btn-scroll-top fade"><i class="fa fa-arrow-up"></i></a>
+        <!-- END btn-scroll-top -->
     </div>
-    <!-- end auth-page-wrapper -->
+    <!-- END #app -->
 
-    <!-- JAVASCRIPT -->
-    <script src="{{ url_for('static', filename='js/as.js') }}"></script>
-    <script src="{{ url_for('static', filename='libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='libs/simplebar/simplebar.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='libs/node-waves/waves.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='libs/feather-icons/feather.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/plugins.js') }}"></script>
-
-    <script src="{{ url_for('static', filename='libs/sweetalert2/sweetalert2.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-
-    <!-- particles app js -->
-    <script src="{{ url_for('static', filename='libs/particles.js/particles.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/pages/particles.app.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
-    <!-- password-addon init -->
-    <script src="{{ url_for('static', filename='js/pages/password-addon.init.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/env/auth/login/login.js') }}"></script>
+    <!-- ================== BEGIN core-js ================== -->
+    <script async defer src="{{ url_for('static', filename='plugins/jquery/dist/jquery.min.js') }}"></script>
+    <script async defer src="{{ url_for('static', filename='plugins/toastify-js/src/toastify-js.js') }}"></script>
+    <script async defer src="{{ url_for('static', filename='plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script async defer src="{{ url_for('static', filename='js/lord-icon-2.1.0.js') }}"></script>
+    <script async defer src="{{ url_for('static', filename='js/as.js') }}"></script>
+    <script async defer src="{{ url_for('static', filename='js/vendor.min.js') }}"></script>
+    <script async defer src="{{ url_for('static', filename='js/app.min.js') }}"></script>
+    <script async defer src="{{ url_for('static', filename='js/env/auth/auth.js') }}"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register("/sw.js", {
+                        scope: '/'
+                    })
+                    .then(function(registration) {
+                        // Registration was successful
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    }, function(err) {
+                        // registration failed :(
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
+    <!-- ================== END core-js ================== -->
 </body>
 
 </html>

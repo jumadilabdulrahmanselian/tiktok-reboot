@@ -1,0 +1,6 @@
+#User-agent: *
+#
+#Disallow: /auth/login
+#Disallow: /auth/logout
+#Disallow: /auth/forgot
+#Disallow: /auth/signup

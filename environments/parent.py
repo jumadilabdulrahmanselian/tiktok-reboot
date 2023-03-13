@@ -23,7 +23,7 @@ def parentPage():
     java = [
         'parent/parent.js'
     ]
-    print(java)
+    # print(java)
     return render_template("parent/parent.html", javascript=javascript, java=java, css=css)
 
 @parent.route('/parent/load', methods=["POST"])

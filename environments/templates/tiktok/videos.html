@@ -1,0 +1,188 @@
+{% extends 'layout.html' %} {% block title %}Videos{% endblock %} {% block css %} {% for scss in css %}
+<link href="{{ url_for('static', filename=scss) }}" rel="stylesheet" type="text/css" /> {% endfor %} {% endblock %} {% block content %}
+<div class="card">
+    <script>
+        setTimeout(function() {
+            document.querySelector('#app').classList.remove('app-sidebar-toggle')
+            document.querySelector('#app').classList.add('app-sidebar-collapsed')
+                // document.querySelector('.dataTables_length').classList.add('d-none')
+                // document.querySelector('.dataTables_filter').classList.add('d-none')
+            var myWidth = 0,
+                myHeight = 0;
+            if (typeof(window.innerWidth) == 'number') {
+                //Non-IE
+                myWidth = window.innerWidth;
+                myHeight = window.innerHeight;
+            } else if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+                //IE 6+ in 'standards compliant mode'
+                myWidth = document.documentElement.clientWidth;
+                myHeight = document.documentElement.clientHeight;
+            } else if (document.body && (document.body.clientWidth || document.body.clientHeight)) {
+                //IE 4 compatible
+                myWidth = document.body.clientWidth;
+                myHeight = document.body.clientHeight;
+            }
+            var lastHeight = myHeight - ((myHeight * 31) / 100)
+            console.log(lastHeight)
+            var style = document.querySelector('.widthme').getAttribute('style')
+            document.querySelector('.widthme').setAttribute('style', style + 'max-height:' + (lastHeight) + 'px')
+        }, 2000)
+    </script>
+    <style>
+        .dataTables_wrapper .row.mb-3,
+        .dt-buttons,
+        .dataTables_length,
+        .dataTables_filter {
+            display: none;
+        }
+        
+        .actived::after {
+            content: "";
+            margin-left: 5px;
+            position: absolute;
+            background-image: url("{{ url_for('static', filename='img/icon/verified.png') }}");
+            background-size: 20px;
+            background-repeat: no-repeat;
+            height: 30px;
+            width: 30px;
+        }
+        
+        #tableVideos_wrapper {
+            padding: 0.5rem !important;
+        }
+    </style>
+    <div class="card-body p-0">
+        <!-- BEGIN profile -->
+        <div class="profile">
+            <!-- BEGIN profile-container -->
+            <div class="profile-container">
+                <!-- BEGIN profile-sidebar -->
+                <div class="profile-sidebar" style="width: 35rem;">
+                    <div class="desktop-sticky-top">
+                        <div class="mb-2">
+                            <button type="button" class="btn btn-outline-theme" data-bs-toggle="modal" data-bs-target="#modalAddUsername">Add Username</button>
+                            <button type="button" class="float-end btn btn-outline-theme clearDetail">Clear</button>
+                            <button type="button" class="me-1 float-end btn btn-outline-theme refreshUsername">Refresh</button>
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="flex-fill position-relative">
+                                <div class="input-group">
+                                    <input type="text" class="form-control px-35px" id="tableSearch" placeholder="Filter Username">
+                                    <div class="input-group-text position-absolute top-0 bottom-0 bg-none border-0 start-0" style="z-index: 1020;">
+                                        <i class="fa fa-search opacity-5"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <select class="form-select" id="statusSearch">
+                                <option value="" selected>Status</option>
+                                <option value="CRAWL">CRAWL</option>
+                                <option value="BANNED">BANNED</option>
+                                <option value="PRIVATE">PRIVATE</option>
+                            </select>
+                        </div>
+                        <table id="tblUsernameList" class="table text-nowrap w-100">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Username</th>
+                                    <th>Status</th>
+                                    <th>Videos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END profile-sidebar -->
+
+                <!-- BEGIN profile-content -->
+                <div class="profile-content d-none">
+                    <div class="desktop-sticky-top">
+                        <div class="d-flex p-3" style="border-bottom: 1px solid rgba(255, 255, 255, 0.3);">
+                            <a class="d-flex align-items-start"><img src="{{ url_for('static', filename='img/user/profile.jpg') }}" alt="" width="70" class="rounded-circle ttImage"></a>
+                            <div class="flex-fill ps-2 align-items-center">
+                                <div class="fw-bold actived tikName">Clyde Stanley</div>
+                                <div class="small text-white text-opacity-50 tikUsername">@clydestain</div>
+                                <div class="text-white text-opacity-80 mt-1 tikDeskripsi">VEGA’DVENTURE ☀️<br> CUENTA OFICIAL FACEBOOK: Vega Tatiiana <br>Chanel YouTube here</div>
+                            </div>
+                            <div class="justify-content-end">
+                                <button type="button" class="btn btn-outline-theme crawlOnline"><i class="fas fa-sm fa-bug me-1"></i> Crawl Online</button>
+                                <button type="button" class="btn btn-outline-theme refreshVideo"><i class="fas fa-sm fa-circle-notch me-1"></i> Refresh Data</button>
+                                <button type="button" class="btn btn-outline-theme"><i class="fas fa-sm fa-download me-1"></i> Download Batch</button>
+                            </div>
+                        </div>
+                        <div class="profile-content-container widthme p-0" style="overflow-y: auto;">
+                            <table class="table table-bordered w-100" id="tableVideos">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Video ID</th>
+                                        <th>Videos</th>
+                                        <th>Detail</th>
+                                        <th>Download</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Video ID</th>
+                                        <th>Videos</th>
+                                        <th>Detail</th>
+                                        <th>Download</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- END profile-content -->
+            </div>
+            <!-- END profile-container -->
+        </div>
+        <!-- END profile -->
+    </div>
+    <div class="card-arrow">
+        <div class="card-arrow-top-left"></div>
+        <div class="card-arrow-top-right"></div>
+        <div class="card-arrow-bottom-left"></div>
+        <div class="card-arrow-bottom-right"></div>
+    </div>
+</div>
+<div class="modal modal-cover fade" id="modalAddUsername">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Username</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" method="post" data-type="save" id="form_tambah" class="needs-validation" novalidate>
+                    <p class="mb-3">
+                        You can add 5 usernames if you in free plan, Upgrade your plan to add more than 5 usernames!
+                    </p>
+                    <div class="row mb-5">
+                        <div class="col-md-9">
+                            <input type="text" placeholder="Type Username that will be crawl" class="form-control form-control-lg" name="username">
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-outline-theme btn-lg btn-block btnSave">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal modal-cover fade" id="modalVideos" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content mVideo">
+
+        </div>
+    </div>
+</div>
+{% endblock %} {% block javascript %} {% for js in javascript %}
+<script defer src="{{ url_for('static', filename=js) }}"></script>
+{% endfor %} {% endblock %} {% block java %} {% for js in java %}
+<script defer src="{{ url_for('static', filename='js/env/'+js) }}"></script>
+{% endfor %} {% endblock %}

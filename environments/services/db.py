@@ -42,3 +42,6 @@ class DB:
     def Cursor(self, ):
         # cursor_factory=NamedTupleCursor
         return self.Connect().cursor(cursor_factory=DictCursor)
+
+    def createTables(self):
+        return 'asdasd'

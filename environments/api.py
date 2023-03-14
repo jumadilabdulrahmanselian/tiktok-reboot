@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from .services.crawlx import Crawl
+from .services.crawly import Crawl
 import requests
 from bs4 import BeautifulSoup
 import json
